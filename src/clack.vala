@@ -67,24 +67,33 @@ public class Application : Gtk.Window {
     }
 
     private void choose_file () {
-        Gtk.FileChooserDialog file_chooser = new Gtk.FileChooserDialog (
+        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog (
             "Open Text File",
             this,
             Gtk.FileChooserAction.OPEN,
             "_Cancel", Gtk.ResponseType.CANCEL,
             "_Open", Gtk.ResponseType.ACCEPT
         );
-        if (file_chooser.run () == Gtk.ResponseType.ACCEPT) {
-            open_file (file_chooser.get_filename ());
+
+        Gtk.FileFilter filter = new Gtk.FileFilter ();
+        chooser.set_filter (filter);
+        filter.add_mime_type ("text/*");
+
+        if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+            open_file (chooser.get_filename ());
         }
-        file_chooser.destroy ();
+
+        chooser.close ();
     }
 
     private void open_file (string filename) {
         try {
             string text;
             FileUtils.get_contents (filename, out text);
+            File file = File.new_for_path (filename);
+            string basename = file.get_basename ();
             this.view.buffer.text = text;
+            this.title = basename;
         } catch (Error e) {
             stderr.printf ("Error: %s\n", e.message);
         }
