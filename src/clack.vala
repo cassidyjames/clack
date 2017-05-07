@@ -43,23 +43,12 @@ public class Application : Gtk.Window {
             }
         """;
 
-        string filename = "README.md";
-        string contents;
-
-        try {
-            FileUtils.get_contents (filename, out contents);
-            this.title = filename;
-        } catch (FileError e) {
-            stderr.printf ("%s\n", e.message);
-            contents = FALLBACK_TEXT;
-        }
-
         this.view = new Gtk.SourceView ();
         this.view.wrap_mode = Gtk.WrapMode.WORD;
-        this.view.set_border_width (12);
+        this.view.top_margin = 12;
+        this.view.left_margin = 12;
         this.view.monospace = true;
         this.view.editable = false;
-        this.view.buffer.text = contents;
 
         var provider = new Gtk.CssProvider ();
         try {
