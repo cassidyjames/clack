@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Cassidy James Blaede <c@ssidyjam.es> -->
+<component type="desktop">
+    <id>com.github.cassidyjames.clack.desktop</id>
+    <metadata_license>CC0</metadata_license>
+    <project_license>GPL-3.0+</project_license>
+    <name>Clack</name>
+    <summary>Read plain text files</summary>
+    <description>
+        <p>A stupidly-simple text viewer. Basic utility that just displays plain
+        text files as a fallback from other apps.</p>
+    </description>
+    <provides>
+        <binary>com.github.cassidyjames.clack</binary>
+    </provides>
+    <developer_name>Cassidy James Blaede</developer_name>
+    <url type="homepage">http://cassidyjames.com</url>
+    <url type="bugtracker">https://github.com/cassidyjames/clack/issues</url>
+    <custom>
+        <value key="x-appcenter-color-primary">#333</value>
+        <value key="x-appcenter-color-primary-text">#fff</value>
+    </custom>
+</component>
