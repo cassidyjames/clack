@@ -1,3 +1,10 @@
+com.github.cassidyjames.clack (0.1.1) xenial; urgency=low
+
+  * Fix appdata
+
+ -- Cassidy James Blaede <c@ssidyjam.es>  Sat, 7 May 2017 12:24:00 -0700
+
+
 com.github.cassidyjames.clack (0.1) xenial; urgency=low
 
   * Initial Release.
