@@ -1,0 +1,16 @@
+Source: com.github.cassidyjames.clack
+Section: x11
+Priority: extra
+Maintainer: Cassidy James Blaede <c@ssidyjam.es>
+Build-Depends: cmake (>= 2.8),
+               debhelper (>= 9),
+               libgtk-3-dev,
+               libgtksourceview-3.0-dev,
+               valac-0.26 | valac (>= 0.26)
+Standards-Version: 3.9.3
+
+Package: com.github.cassidyjames.clack
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Stupidly simple text viewer
+ Basic utility that just displays plain text files.
