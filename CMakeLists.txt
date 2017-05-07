@@ -34,7 +34,6 @@ include(ValaPrecompile)
 vala_precompile(VALA_C ${EXEC_NAME}
     src/clack.vala
 
-# tell what libraries to use when compiling
 PACKAGES
     gtk+-3.0
     gtksourceview-3.0

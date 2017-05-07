@@ -20,6 +20,7 @@
 int main (string[] args) {
     Gtk.init (ref args);
 
+    // TODO: Make this translatable?
     const string FALLBACK_TEXT = "Clack is a simple text viewer. To use it, " +
         "open a text file from your file manager or another app.";
 
@@ -31,8 +32,8 @@ int main (string[] args) {
     """;
 
     var window = new Gtk.Window ();
-    window.title = "Clack";
     window.set_position (Gtk.WindowPosition.CENTER);
+    window.title = "Clack";
     window.set_default_size (800, 600);
     window.destroy.connect (Gtk.main_quit);
 
@@ -65,6 +66,7 @@ int main (string[] args) {
         critical (e.message);
     }
 
+    window.title = filename;
     window.add (view);
     window.show_all ();
 
