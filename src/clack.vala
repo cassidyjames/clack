@@ -15,14 +15,20 @@
 * License along with this program; if not, write to the
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
-*
-* Authored by: Cassidy James Blaede <c@ssidyjam.es>
 */
 
 int main (string[] args) {
     Gtk.init (ref args);
+
     const string FALLBACK_TEXT = "Clack is a simple text viewer. To use it, " +
         "open a text file from your file manager or another app.";
+
+    // TODO: Remove .monospace once new elementary stylesheet is released.
+    const string STYLES = """
+        .monospace {
+            font-family: monospace;
+        }
+    """;
 
     var window = new Gtk.Window ();
     window.title = "Clack";
@@ -41,10 +47,23 @@ int main (string[] args) {
     }
 
     Gtk.SourceView view = new Gtk.SourceView ();
-    // view.wrap_mode = Gtk.WrapMode.WORD;
+    view.wrap_mode = Gtk.WrapMode.WORD;
+    view.monospace = true;
     view.editable = false;
     view.buffer.text = contents;
 
+    var provider = new Gtk.CssProvider ();
+    try {
+        provider.load_from_data (STYLES, STYLES.length);
+
+        Gtk.StyleContext.add_provider_for_screen (
+            Gdk.Screen.get_default (),
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
+    } catch (GLib.Error e) {
+        critical (e.message);
+    }
 
     window.add (view);
     window.show_all ();
