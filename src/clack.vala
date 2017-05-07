@@ -17,59 +17,69 @@
 * Boston, MA 02110-1301 USA
 */
 
-int main (string[] args) {
-    Gtk.init (ref args);
+public class Application : Gtk.Window {
+    public Application () {
+        this.set_position (Gtk.WindowPosition.CENTER);
+        this.title = "Clack";
+        this.set_default_size (800, 600);
+        this.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        this.destroy.connect (Gtk.main_quit);
 
-    // TODO: Make this translatable?
-    const string FALLBACK_TEXT = "Clack is a simple text viewer. To use it, " +
-        "open a text file from your file manager or another app.";
+        Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow (null, null);
+        this.add (scroll);
 
-    // TODO: Remove .monospace once new elementary stylesheet is released.
-    const string STYLES = """
-        .monospace {
-            font-family: monospace;
+        // TODO: Make this translatable?
+        const string FALLBACK_TEXT = "Clack is a simple text viewer. To use it, " +
+            "open a text file from your file manager or another app.";
+
+        // TODO: Remove .monospace once new elementary stylesheet is released.
+        const string STYLES = """
+            .monospace {
+                font-family: monospace;
+            }
+        """;
+
+        string filename = "README.md";
+        string contents;
+
+        try {
+            FileUtils.get_contents (filename, out contents);
+            this.title = filename;
+        } catch (FileError e) {
+            stderr.printf ("%s\n", e.message);
+            contents = FALLBACK_TEXT;
         }
-    """;
 
-    var window = new Gtk.Window ();
-    window.set_position (Gtk.WindowPosition.CENTER);
-    window.title = "Clack";
-    window.set_default_size (800, 600);
-    window.destroy.connect (Gtk.main_quit);
+        Gtk.SourceView view = new Gtk.SourceView ();
+        view.wrap_mode = Gtk.WrapMode.WORD;
+        view.set_border_width (12);
+        view.monospace = true;
+        view.editable = false;
+        view.buffer.text = contents;
 
-    string filename = "README.md";
-    string contents;
+        var provider = new Gtk.CssProvider ();
+        try {
+            provider.load_from_data (STYLES, STYLES.length);
 
-    try {
-        FileUtils.get_contents (filename, out contents);
-    } catch (FileError e) {
-        stderr.printf ("%s\n", e.message);
-        contents = FALLBACK_TEXT;
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (),
+                provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        } catch (GLib.Error e) {
+            critical (e.message);
+        }
+
+        scroll.add (view);
     }
 
-    Gtk.SourceView view = new Gtk.SourceView ();
-    view.wrap_mode = Gtk.WrapMode.WORD;
-    view.monospace = true;
-    view.editable = false;
-    view.buffer.text = contents;
+    public static int main (string[] args) {
+        Gtk.init (ref args);
 
-    var provider = new Gtk.CssProvider ();
-    try {
-        provider.load_from_data (STYLES, STYLES.length);
+        Application app = new Application ();
+        app.show_all ();
 
-        Gtk.StyleContext.add_provider_for_screen (
-            Gdk.Screen.get_default (),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        );
-    } catch (GLib.Error e) {
-        critical (e.message);
+        Gtk.main ();
+        return 0;
     }
-
-    window.title = filename;
-    window.add (view);
-    window.show_all ();
-
-    Gtk.main ();
-    return 0;
 }
