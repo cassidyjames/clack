@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Clack
+GenericName=Text Viewer
+Comment=Read plain text files and nothing else
+Categories=GTK;Utility;
+Exec=com.github.cassidyjames.clack
+Icon=text-x-generic
+Terminal=false
+Type=Application
+Keywords=Text;Plain;Plaintext;Notepad;
