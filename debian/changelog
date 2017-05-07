@@ -1,8 +1,14 @@
+com.github.cassidyjames.clack (0.1.4) xenial; urgency=low
+
+  * Baby that debian/control file
+
+ -- Cassidy James Blaede <c@ssidyjam.es>  Sat, 7 May 2017 2:42:00 -0700
+
 com.github.cassidyjames.clack (0.1.2) xenial; urgency=low
 
   * Hopefully fix build
 
- -- Cassidy James Blaede <c@ssidyjam.es>  Sat, 7 May 2017 12:24:00 -0700
+ -- Cassidy James Blaede <c@ssidyjam.es>  Sat, 7 May 2017 2:30:00 -0700
 
 com.github.cassidyjames.clack (0.1.1) xenial; urgency=low
 

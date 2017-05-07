@@ -12,8 +12,8 @@ set (PKGDATADIR "${DATADIR}/com.github.cassidyjames.clack")
 
 set (EXEC_NAME "com.github.cassidyjames.clack")
 set (RELEASE_NAME "Hello AppCenter")
-set (VERSION "0.1")
-set (VERSION_INFO "It's alive!")
+set (VERSION "0.1.3")
+set (VERSION_INFO "third time's a charm?")
 
 find_package(PkgConfig)
 
